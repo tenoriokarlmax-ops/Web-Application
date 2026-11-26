@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gauss — Linear Systems &amp; Chemical Balancer</title>
+  <meta name="description" content="Solve linear systems with Gauss–Jordan elimination and balance chemical equations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!--Shining shimering ni karl maganda -->
+  <header class="masthead">
+    <canvas id="sparkles" aria-hidden="true"></canvas>
+    <div class="masthead__inner">
+      <a class="brand" href="#calculator">Gauss</a>
+      <nav aria-label="Main">
+        <a href="#calculator" data-page="calculator">Calculator</a>
+        <a href="#about" data-page="about">About &amp; method</a>
+        <a href="#applications" data-page="applications">Real-world uses</a>
+      </nav>
+    </div>
+    <p class="masthead__tag">Linear systems and chemical equations, solved by the same method, step by step.</p>
+  </header>
+
+  <!-- PAGE 1:Calculator (kept completely separate from the About page) -->
+  <main id="page-calculator" class="page">
+    <p class="picker-label" id="picker-label">Choose a calculator</p>
+    <div class="tabs" role="tablist" aria-labelledby="picker-label"></div>
+    <section id="mode-panel" class="card" role="tabpanel"></section>
+  </main>
+
+  <!-- PAGE 2:About / Gauss–Jordan explanation -->
+  <main id="page-about" class="page" hidden>
+    <article class="card prose">
+      <h1>About Gauss</h1>
+      <p>Gauss is a small workbench built around one method: Gauss–Jordan elimination. It has two calculators, a linear-system solver and a chemical equation balancer, and the balancer runs on the solver’s math. Every result comes with its reasoning, so it works for checking homework as well as for learning the method.</p>
+
+      <h2>What is Gauss–Jordan elimination?</h2>
+      <p>A system of equations is written as an <strong>augmented matrix</strong>: one row per equation, one column per variable, and a final column for the constants. Three legal row operations simplify it without changing its solutions:</p>
+      <ul>
+        <li>Swap two rows.</li>
+        <li>Multiply a row by a nonzero number.</li>
+        <li>Add a multiple of one row to another.</li>
+      </ul>
+      <p>The goal is reduced row echelon form (RREF): each pivot is 1 and is the only nonzero entry in its column. Then you can read the answer directly.</p>
+      <ol>
+        <li><strong>Find a pivot.</strong> Pick the next column and choose the row with the largest entry.</li>
+        <li><strong>Make it 1.</strong> Divide the pivot row by the pivot.</li>
+        <li><strong>Clear the column.</strong> Subtract multiples of the pivot row from every other row.</li>
+        <li><strong>Repeat</strong> for the next column, then read the result.</li>
+      </ol>
+      <p>A row like <code>0 0 | 5</code> means no solution. Fewer pivots than variables means infinitely many solutions.</p>
+
+      <h2>Worked example</h2>
+      <p>Solve <code>x + y = 3</code> and <code>2x − y = 0</code>. These steps are generated live by the same solver the calculator uses.</p>
+      <div id="about-example"></div>
+
+      <h2>How the chemical balancer works</h2>
+      <p>Atoms are conserved, so each element gives one linear equation: atoms on the left equal atoms on the right. Gauss builds a matrix of element counts (products count as negative), reduces it with Gauss–Jordan, and reads the coefficients from the one free variable. It then scales them to the smallest whole numbers. Open any balanced result in the solver to see the same matrix. See more uses on the <a href="#applications">real-world uses</a> page.</p>
+    </article>
+  </main>
+
+  <!-- PAGE 3:Real-world applications (cards are generated in app.js) -->
+  <main id="page-applications" class="page" hidden>
+    <div class="card prose"><h1>Where Gauss–Jordan elimination is used</h1>
+      <p>Any time several quantities depend on each other in a straight-line way, you get a linear system. Each example below includes a small system you can open in the solver with one click.</p></div>
+    <div id="apps-list"></div>
+  </main>
+
+  
+  <script type="module" src="app.js"></script>
+</body>
+</html>
